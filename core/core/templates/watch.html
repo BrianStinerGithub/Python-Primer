@@ -92,19 +92,32 @@
                 <h1>{{video.name}}</h1>
                 <div class="info-bar">
                     <div class="left">
-                        <span>{{video.views}} views • {{video.created_at}}</span> <!-- needs to be formatted-->
+                        <span>{{video.views}} views • {{video.created_at}} • {{video.likes}} likes • {{video.dislikes}} dislikes</span> <!-- needs to be formatted-->
                     </div>
                     <div class="right">
-                        <a href="#">
-                            <i class="material-icons">thumb_up</i> <!-- function to modify channel.likes, likedvideo playlist, video.likes-->
-                            <span>LIKE</span>
-                        </a>
-                        <a href="#">
-                            <i class="material-icons">thumb_down</i> <!-- function to modify channel.dislikes, video.dislikes-->
+                        <!-- <a href="{% url 'like_video' video.pk %}">
+                            <i class="material-icons">thumb_up</i>  function to modify channel.likes, likedvideo playlist, video.likes
+                            <span>LIKE</span> 
+                        </a> -->  
+                        <form action="{% url 'like_video' video.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="video_id", value="{{video.id}}", class="btn btn-primary btn-sm">
+                                Like
+                            </button>
+                            
+                        </form>
+                        <form action="{% url 'dislike_video' video.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="video_id", value="{{video.id}}", class="btn btn-primary btn-sm">
+                                Dislike
+                            </button>
+                        </form>
+                        <!-- <a href="#">
+                            <i class="material-icons">thumb_down</i>  function to modify channel.dislikes, video.dislikes
                             <span>DISLIKE</span>
-                        </a>
+                        </a>  -->
                         <a href="">
-                            <i class="material-icons">share</i> <!-- add to playlist, like watch later. -->
+                            <i class="material-icons">share</i>  add to playlist, like watch later. 
                             <span>SHARE</span>
                         </a>
                         <a href="">

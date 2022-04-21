@@ -91,7 +91,8 @@ import psycopg2
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")) #using this line instead of 95 fixes TypeError: argument of type 'WindowsPath' is not iterable
+        # 'NAME': BASE_DIR / 'db.sqlite3', 
     },
     'backup': {
         'ENGINE': 'django.db.backends.postgresql',

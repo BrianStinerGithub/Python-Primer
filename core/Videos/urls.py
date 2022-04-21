@@ -6,6 +6,8 @@ urlpatterns = [
                   path("home/", views.home, name="home"),
                   path("profile/<str:username>", views.profile, name="profile"),
                   path("watch/<str:video_id>", views.watch, name="watch"),
+                  path('like/<int:pk>', views.likeVideo, name='like_video'),
+                  path('dislike/<int:pk>', views.dislikeVideo, name='dislike_video'),
 
 # TODO: put this data in the database then remove html from the python file
 #               < iframe;
