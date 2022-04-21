@@ -25,9 +25,9 @@ class Channel(models.Model):
         views =         models.IntegerField(default=0)
         location =      models.CharField(max_length=255, blank=True)
         category =      models.CharField(max_length=255, blank=True)
+        icon =          models.URLField(blank=True)
+        banner =        models.URLField(blank=True)
         owner =         models.ForeignKey('auth.User',on_delete=models.SET_DEFAULT, default=1)
-        icon =          models.ImageField(upload_to='Videos/Channels/icons/',blank=True)
-        banner =        models.ImageField(upload_to='Videos/Channels/banners/',blank=True)
         subscribers =   models.ManyToManyField('auth.User', related_name='subscribers', blank=True)
         videos =        models.ManyToManyField('Video', related_name='channel_videos', blank=True)
         subcriptions =  models.ManyToManyField('Channel', related_name='subscriptions', blank=True)
@@ -46,8 +46,8 @@ class Playlist(models.Model):
         about =         models.TextField(blank=True)
         duration =      models.IntegerField(default=0)
         views =         models.IntegerField(default=0)
-        videos =        models.ManyToManyField('Video', related_name='playlist_videos', blank=True)
         channel =       models.ForeignKey('Channel',on_delete=models.SET_DEFAULT, default=1)
+        videos =        models.ManyToManyField('Video', related_name='playlist_videos', blank=True)
         created_at =    models.DateTimeField(auto_now_add=True)
         updated_at =    models.DateTimeField(auto_now=True)
     except TypeError:
@@ -64,7 +64,6 @@ class Video(models.Model):
         description =   models.TextField(blank=True)
         duration =      models.IntegerField(default=0)
         comments =      models.ManyToManyField('Comment', related_name='video_comments', blank=True)
-        channel =       models.ForeignKey('Channel',on_delete=models.CASCADE, related_name='video_channel')
         likes =         models.ManyToManyField('auth.User', related_name='video_likes', blank=True)
         dislikes =      models.ManyToManyField('auth.User', related_name='video_dislikes', blank=True)
         views =         models.IntegerField(default=0)
@@ -75,9 +74,9 @@ class Video(models.Model):
 
 class Comment(models.Model):
     try:
-        video =         models.ForeignKey('Video',on_delete=models.CASCADE)
         content =       models.TextField(max_length=1024)
         author =        models.ForeignKey('auth.User',on_delete=models.CASCADE)
+        video =         models.ForeignKey('Video',on_delete=models.CASCADE)
         likes =         models.ManyToManyField('auth.User', related_name='comment_likes', blank=True)
         dislikes =      models.ManyToManyField('auth.User', related_name='comment_dislikes', blank=True)
         replies =       models.ManyToManyField('Comment', related_name='comment_replies', blank=True)

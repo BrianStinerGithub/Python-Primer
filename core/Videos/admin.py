@@ -11,8 +11,8 @@ class ChannelAdmin(admin.ModelAdmin):
     list_filter = ('name', 'views', 'owner')
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('video', 'author', 'created_at')
-    list_filter = ('video', 'author', 'created_at')
+    list_display = ('content', 'author', 'created_at')
+    list_filter = ('content', 'author', 'created_at')
 
 class PlaylistAdmin(admin.ModelAdmin):
     list_display = ('name', 'about', 'created_at')
