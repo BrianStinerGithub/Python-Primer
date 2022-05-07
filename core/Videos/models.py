@@ -17,8 +17,6 @@ Editable = True
 # TODO: Make this editable=False before deployment.
 
 class Channel(models.Model):
-
-    try:
         uuid =          models.UUIDField(default=uuid4, editable=Editable, unique=True)
         name =          models.CharField(max_length=255)
         about =         models.TextField(blank=True)
@@ -34,13 +32,10 @@ class Channel(models.Model):
         playlists =     models.ManyToManyField('Playlist', related_name='channel_playlists', blank=True)
         created_at =    models.DateTimeField(auto_now_add=True)
         updated_at =    models.DateTimeField(auto_now=True)
-    except TypeError:
-        logger.exception('A field was not correctly filled out when attempting to add a channel')
 
 
 
 class Playlist(models.Model):
-    try:
         uuid =          models.UUIDField(default=uuid4, editable=Editable, unique=True)
         name =          models.CharField(max_length=255)
         about =         models.TextField(blank=True)
@@ -50,13 +45,8 @@ class Playlist(models.Model):
         videos =        models.ManyToManyField('Video', related_name='playlist_videos', blank=True)
         created_at =    models.DateTimeField(auto_now_add=True)
         updated_at =    models.DateTimeField(auto_now=True)
-    except TypeError:
-        logger.exception('A field was not correctly filled out when attempting to add a playlist')
-
 
 class Video(models.Model):
-
-    try:
         uuid =          models.UUIDField(default=uuid4, editable=Editable, unique=True)
         name =          models.CharField(max_length=255)
         url =           models.URLField(max_length=255)
@@ -72,11 +62,8 @@ class Video(models.Model):
         views =         models.IntegerField(default=0)
         created_at =    models.DateTimeField(auto_now_add=True)
         updated_at =    models.DateTimeField(auto_now=True)
-    except TypeError:
-        logger.exception('A field was not correctly filled out when attempting to add a video')
 
 class Comment(models.Model):
-    try:
         content =       models.TextField(max_length=1024)
         author =        models.ForeignKey('auth.User',on_delete=models.CASCADE)
         video =         models.ForeignKey('Video',on_delete=models.CASCADE)
@@ -85,5 +72,3 @@ class Comment(models.Model):
         replies =       models.ManyToManyField('Comment', related_name='comment_replies', blank=True)
         created_at =    models.DateTimeField(auto_now_add=True)
         updated_at =    models.DateTimeField(auto_now=True)
-    except TypeError:
-        logger.exception('A field was not correctly filled out when attempting to add a comment')
