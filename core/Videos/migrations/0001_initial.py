@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             name='Comment',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('uuid', models.UUIDField(default=uuid4, editable=False, unique=True)),
+                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True)),
                 ('name', models.CharField(max_length=255)),
                 ('about', models.TextField(blank=True)),
                 ('duration', models.IntegerField(default=0)),
